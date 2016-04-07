@@ -112,7 +112,13 @@ class Selenium2Driver extends CoreDriver
 
         if (isset($desiredCapabilities['chrome'])) {
             foreach ($desiredCapabilities['chrome'] as $capability => $value) {
-                $desiredCapabilities['chrome.'.$capability] = $value;
+                switch ($capability) {
+                    case 'options':
+                        $desiredCapabilities['chromeOptions'] = $value;
+                        break;
+                    default:
+                        $desiredCapabilities['chrome.'.$capability] = $value;
+                }
             }
 
             unset($desiredCapabilities['chrome']);
